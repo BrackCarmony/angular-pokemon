@@ -1,12 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="pokemon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body ng-controller="listCtrl">
   
+  {{ name }}
+  <button ng-click="showForm=!showForm">Toggle Form</button>
+  <div ng-show="showForm" class="addNew">
+    <form ng-submit="addCard()">
+      Name: <input type="text" ng-model="newCard.name"/>
+      ImageSelect:
+      <select ng-model="newCard.url" ng-options="image.url as image.name for image in images"></select>
+      Url:  <input type="text" ng-model="newCard.url"/>
+      Type: <input type="text" ng-model="newCard.type"/>
+      HP:   <input type="number" min=0 ng-model="newCard.stats.hp"/>
+      ATK:  <input type="number" min=0 ng-model="newCard.stats.atk"/>
+      DEF:  <input type="number" min=0 ng-model="newCard.stats.def"/>
+      <button type="submit">Add Card</button>
+    </form>
+
+    <div class="card">
+      <div class="name">
+        {{ newCard.name }}
+      </div>
+      <div class="picture" ng-style="{backgroundImage: 'url(' + newCard.url + ')'}">
+        <!-- <img ng-src="{{ newCard.url }}" alt="" /> -->
+      </div>
+      <div class="stats">
+        <div class="stat">HP: {{newCard.stats.hp}}</div>
+        <div class="stat">ATK: {{newCard.stats.atk}}</div>
+        <div class="stat">DEF: {{newCard.stats.def}}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <input type="text" ng-model="cardFilter"/> -->
+  <input type="text" ng-model="cardFilter.name" placeholder="Search Name">
+  <input type="text" ng-model="cardFilter.type" placeholder="Search Type">
+
+
+  <div class="cardList">
+    <div class="card" 
+        ng-repeat="card in cards | filter : cardFilter"
+        ng-click="selected=!selected"
+        ng-class="{selected: selected}">
+      <div class="name">
+        {{ card.name }}
+      </div>
+      <div class="picture" ng-style="{backgroundImage: 'url(' + card.url + ')'}">
+        <!-- <img ng-src="{{ card.url }}" alt="" /> -->
+      </div>
+      <div class="stats">
+        <div class="stat">HP: {{card.stats.hp}}</div>
+        <div class="stat">ATK: {{card.stats.atk}}</div>
+        <div class="stat">DEF: {{card.stats.def}}</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js" charset="utf-8"></script>
+  <script src="app/app.js"></script>
 </body>
 </html>
