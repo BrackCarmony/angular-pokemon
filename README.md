@@ -32,7 +32,7 @@ Structure of card for styles.
   <div class="name"><name>
   <div class="picture"><picture>
   <div class="stats"><stats>
- <card>
+ </div>
 ```
 ```javascript
 $scope.card = {

@@ -1,12 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="pokemon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Pokemon List</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-  
+<body ng-controller="listCtrl" >
+  {{ name }}
+
+  <!-- <input type="text" ng-model="basicFilter"/> -->
+  <form class = ">
+    Name:<input type="text" ng-model="newCard.name"/>
+    Type:<input type="text" ng-model="newCard.type"/>
+    Url:<input type="text" ng-model="newCard.url"/>
+    HP:<input type="number" ng-model="newCard.stats.hp"/>
+    ATK:<input type="number" ng-model="newCard.stats.atk"/>
+    DEF:<input type="number" ng-model="newCard.stats.def"/>
+    
+  </form>
+
+  <input type="text" ng-model="objectFilter.name"/>
+  <input type="text" ng-model="objectFilter.type"/>
+  {{ objectFilter }}
+
+  <div class="cardList">
+    <div class="card" 
+      ng-repeat="card in cards | filter : objectFilter ">
+      <div class="name"> {{ card.name }} </div>
+      <!-- url(http://stuff.com) -->
+      <div class="picture" 
+      ng-style="{ backgroundImage: 'url(' + card.url + ')' }" > 
+        <!-- <img ng-src = "http://imagebucket.com/{{card.id}}" />  -->
+      </div>
+      <div class="stats">
+        <div class="stat"> HP: {{card.stats.hp}} </div>
+        <div class="stat"> ATK: {{card.stats.atk}} </div>
+        <div class="stat"> DEF: {{card.stats.def}} </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js" charset="utf-8"></script>
+  <script src="app/app.js"></script>
 </body>
 </html>
