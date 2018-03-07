@@ -11,14 +11,39 @@
   {{ name }}
 
   <!-- <input type="text" ng-model="basicFilter"/> -->
-  <form class = ">
-    Name:<input type="text" ng-model="newCard.name"/>
-    Type:<input type="text" ng-model="newCard.type"/>
-    Url:<input type="text" ng-model="newCard.url"/>
-    HP:<input type="number" ng-model="newCard.stats.hp"/>
-    ATK:<input type="number" ng-model="newCard.stats.atk"/>
-    DEF:<input type="number" ng-model="newCard.stats.def"/>
-    
+  <button ng-click="displayForm = !displayForm">Toggle Form</button>
+
+  <form ng-show="displayForm" class = "addNew" ng-submit="addCard()">
+    <div>
+      <input type="text" placeholder="Name" ng-model="newCard.name"/>
+      <input type="text" placeholder="Type" ng-model="newCard.type"/>
+      <select ng-model="newCard.url"  
+      ng-options="image.url as image.name for image in images">
+        <!-- <option value="57326">My Shirt</option> -->
+      </select>
+      <input type="text" placeholder="Url" ng-model="newCard.url"/>
+      <input type="number" placeholder="HP" ng-model="newCard.stats.hp"/>
+      <input type="number" placeholder="ATK" ng-model="newCard.stats.atk"/>
+      <input type="number" placeholder="DEF" ng-model="newCard.stats.def"/>
+
+      <button type="submit"> Add Card </button>
+    </div>
+
+    <div class="card">
+      <div class="name"> {{ newCard.name}} </div>
+      <!-- url(http://stuff.com) -->
+      <div class="picture" 
+      ng-style="{ backgroundImage: 'url(' + newCard.url + ')' }" > 
+        <!-- <img ng-src = "http://imagebucket.com/{{newCard.id}}" />  -->
+      </div>
+      <div class="stats">
+        <div class="stat"> HP: {{newCard.stats.hp}} </div>
+        <div class="stat"> ATK: {{newCard.stats.atk}} </div>
+        <div class="stat"> DEF: {{newCard.stats.def}} </div>
+      </div>
+    </div>
+
+      
   </form>
 
   <input type="text" ng-model="objectFilter.name"/>
@@ -27,7 +52,9 @@
 
   <div class="cardList">
     <div class="card" 
-      ng-repeat="card in cards | filter : objectFilter ">
+      ng-repeat="card in cards | filter : objectFilter "
+      ng-click="selected=!selected" 
+      ng-class="{ selected: selected }">
       <div class="name"> {{ card.name }} </div>
       <!-- url(http://stuff.com) -->
       <div class="picture" 
